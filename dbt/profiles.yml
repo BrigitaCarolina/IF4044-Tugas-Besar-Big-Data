@@ -4,9 +4,9 @@ spark_local:
     dev:
       type: spark
       method: session
-      schema: db
+      schema: staging
       host: localhost
       port: 10000
-      database: default
+      database: staging
       threads: 1
       use_ssl: false
