@@ -1,0 +1,12 @@
+spark_local:
+  target: dev
+  outputs:
+    dev:
+      type: spark
+      method: session
+      schema: db
+      host: localhost
+      port: 10000
+      database: default
+      threads: 1
+      use_ssl: false

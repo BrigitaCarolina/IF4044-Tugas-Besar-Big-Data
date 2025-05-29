@@ -3,13 +3,19 @@ CREATE TABLE db.nation ( N_NATIONKEY  INTEGER NOT NULL,
                             N_REGIONKEY  INTEGER NOT NULL,
                             N_COMMENT    VARCHAR(152))
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/nation.csv';
+LOCATION '/mnt/project/warehouse/nation';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/nation.csv'
+INTO TABLE db.nation;
 
 CREATE TABLE db.region ( R_REGIONKEY  INTEGER NOT NULL,
                             R_NAME       CHAR(25) NOT NULL,
                             R_COMMENT    VARCHAR(152))
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/region.csv';
+LOCATION '/mnt/project/warehouse/region';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/region.csv'
+INTO TABLE db.region;
 
 CREATE TABLE db.part  ( P_PARTKEY     INTEGER NOT NULL,
                           P_NAME        VARCHAR(55) NOT NULL,
@@ -21,7 +27,10 @@ CREATE TABLE db.part  ( P_PARTKEY     INTEGER NOT NULL,
                           P_RETAILPRICE DECIMAL(15,2) NOT NULL,
                           P_COMMENT     VARCHAR(23) NOT NULL )
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/part.csv';
+LOCATION '/mnt/project/warehouse/part';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/part.csv'
+INTO TABLE db.part;
 
 CREATE TABLE db.supplier ( S_SUPPKEY     INTEGER NOT NULL,
                              S_NAME        CHAR(25) NOT NULL,
@@ -31,7 +40,10 @@ CREATE TABLE db.supplier ( S_SUPPKEY     INTEGER NOT NULL,
                              S_ACCTBAL     DECIMAL(15,2) NOT NULL,
                              S_COMMENT     VARCHAR(101) NOT NULL)
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/supplier.csv';
+LOCATION '/mnt/project/warehouse/supplier';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/supplier.csv'
+INTO TABLE db.supplier;
 
 CREATE TABLE db.partsupp ( PS_PARTKEY     INTEGER NOT NULL,
                              PS_SUPPKEY     INTEGER NOT NULL,
@@ -39,7 +51,10 @@ CREATE TABLE db.partsupp ( PS_PARTKEY     INTEGER NOT NULL,
                              PS_SUPPLYCOST  DECIMAL(15,2)  NOT NULL,
                              PS_COMMENT     VARCHAR(199) NOT NULL )
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/partsupp.csv';
+LOCATION '/mnt/project/warehouse/partsupp';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/partsupp.csv'
+INTO TABLE db.partsupp;
 
 CREATE TABLE dbt.customer ( C_CUSTKEY     INTEGER NOT NULL,
                              C_NAME        VARCHAR(25) NOT NULL,
@@ -50,7 +65,10 @@ CREATE TABLE dbt.customer ( C_CUSTKEY     INTEGER NOT NULL,
                              C_MKTSEGMENT  CHAR(10) NOT NULL,
                              C_COMMENT     VARCHAR(117) NOT NULL)
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/customer.csv';
+LOCATION '/mnt/project/warehouse/customer';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/customer.csv'
+INTO TABLE dbt.customer;
 
 CREATE TABLE db.orders  ( O_ORDERKEY       INTEGER NOT NULL,
                            O_CUSTKEY        INTEGER NOT NULL,
@@ -62,7 +80,10 @@ CREATE TABLE db.orders  ( O_ORDERKEY       INTEGER NOT NULL,
                            O_SHIPPRIORITY   INTEGER NOT NULL,
                            O_COMMENT        VARCHAR(79) NOT NULL)
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/orders.csv';
+LOCATION '/mnt/project/warehouse/orders';
+
+LOAD DATA INPATH '/mnt/project/dbt/seeds/orders.csv'
+INTO TABLE db.orders;
 
 CREATE TABLE db.lineitem ( L_ORDERKEY    INTEGER NOT NULL,
                              L_PARTKEY     INTEGER NOT NULL,
@@ -81,5 +102,7 @@ CREATE TABLE db.lineitem ( L_ORDERKEY    INTEGER NOT NULL,
                              L_SHIPMODE     CHAR(10) NOT NULL,
                              L_COMMENT      VARCHAR(44) NOT NULL)
 USING iceberg
-LOCATION '/mnt/project/dbt/seeds/lineitem.csv';
+LOCATION '/mnt/project/warehouse/lineitem';
 
+LOAD DATA INPATH '/mnt/project/dbt/seeds/lineitem.csv'
+INTO TABLE db.lineitem;
