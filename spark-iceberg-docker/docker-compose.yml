@@ -5,7 +5,7 @@ services:
     build: .
     container_name: spark-iceberg
     volumes:
-      - "C:/Users/gitac/Desktop/GIts/IF4 - Big Data/Tubes Big Data/tugas-besar-big-data:/mnt/project"
+      - "../:/mnt/project"
     environment:
       - SPARK_CONF_DIR=/opt/bitnami/spark/conf
     stdin_open: true

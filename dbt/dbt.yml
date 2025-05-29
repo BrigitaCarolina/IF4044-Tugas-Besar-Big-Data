@@ -4,11 +4,6 @@ profile: spark_local
 
 config-version: 2
 
-seeds:
-  dbt_project:
-    file_format: csv 
-    header: true
-
 models:
   dbt_project: 
     staging:
