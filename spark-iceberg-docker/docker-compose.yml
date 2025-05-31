@@ -6,8 +6,5 @@ services:
     container_name: spark-iceberg
     volumes:
       - "${PROJECT_DIRECTORY_PATH}:/mnt/project"
-      - "${WAREHOUSE_DIRECTORY_PATH}:/opt/bitnami/spark/warehouse"
-    environment:
-      - SPARK_CONF_DIR=/opt/bitnami/spark/conf
     stdin_open: true
     tty: true
