@@ -1,13 +1,25 @@
-create or replace view db.stg_supplier
+
   
-  
-  as
-    SELECT
-    CAST(S_SUPPKEY AS INT) AS S_SUPPKEY,
-    TRIM(S_NAME) AS S_NAME,
-    TRIM(S_ADDRESS) AS S_ADDRESS,
-    CAST(S_NATIONKEY AS INT) AS S_NATIONKEY,
-    TRIM(S_PHONE) AS S_PHONE,
-    CAST(S_ACCTBAL AS DECIMAL(15,2)) AS S_ACCTBAL,
-    TRIM(S_COMMENT) AS S_COMMENT
+    
+        create table db.stg_supplier
+      
+      
+      
+      
+      
+      
+      
+      
+
+      as
+      
+SELECT
+    CAST(S_SUPPKEY AS INT) AS s_suppkey,
+    TRIM(S_NAME) AS s_name,
+    TRIM(S_ADDRESS) AS s_address,
+    CAST(S_NATIONKEY AS INT) AS s_nationkey,
+    TRIM(S_PHONE) AS s_phone,
+    CAST(S_ACCTBAL AS DECIMAL(15,2)) AS s_acctbal,
+    TRIM(S_COMMENT) AS s_comment
 FROM db.supplier;
+  

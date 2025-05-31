@@ -1,15 +1,21 @@
-FROM bitnami/spark:3.5
+FROM openjdk:11-jdk
 
-USER root
+RUN apt-get update && apt-get install -y \
+    python3 python3-pip python3-venv wget curl && \
+    apt-get clean
 
-ADD https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-spark-runtime-3.5_2.12/1.5.0/iceberg-spark-runtime-3.5_2.12-1.5.0.jar \
-    /opt/bitnami/spark/jars/
+ENV SPARK_VERSION=3.5.0
+ENV HADOOP_VERSION=3
 
-COPY spark-defaults.conf /opt/bitnami/spark/conf/
+RUN wget https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz && \
+    tar xzf spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz -C /opt && \
+    rm spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}.tgz
 
-ENV HOME=/home/sparkuser
-RUN useradd -ms /bin/bash sparkuser && \
-    chown -R sparkuser /opt/bitnami/spark
+ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}-bin-hadoop${HADOOP_VERSION}
+ENV PATH=$SPARK_HOME/bin:$PATH
 
-USER sparkuser
-WORKDIR /home/sparkuser
+COPY requirements.txt /mnt/project/requirements.txt
+RUN pip3 install -r /mnt/project/requirements.txt
+ENV PYTHONPATH=$SPARK_HOME/python:$SPARK_HOME/python/lib/py4j-0.10.9.9-src.zip:$PYTHONPATH
+
+WORKDIR /mnt/project

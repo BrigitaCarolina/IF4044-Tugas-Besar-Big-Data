@@ -1,3 +1,4 @@
+{{ config(materialized='table') }}
 SELECT
     CAST(O_ORDERKEY AS INT)        AS order_id,
     CAST(O_CUSTKEY AS INT)         AS customer_id,

@@ -1,3 +1,5 @@
 /venv
 /logs
 /warehouse/db
+metastore_db
+derby.log

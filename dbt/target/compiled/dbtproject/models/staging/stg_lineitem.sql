@@ -1,3 +1,4 @@
+
 SELECT
     CAST(L_ORDERKEY AS INT)         AS order_id,
     CAST(L_PARTKEY AS INT)          AS part_id,

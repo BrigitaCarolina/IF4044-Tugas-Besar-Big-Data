@@ -1,8 +1,19 @@
-create or replace view db.stg_customer
+
   
-  
-  as
-    SELECT
+    
+        create table db.stg_customer
+      
+      
+      
+      
+      
+      
+      
+      
+
+      as
+      
+SELECT
     CAST(C_CUSTKEY AS INT)         AS customer_id,
     TRIM(C_NAME)                   AS name,
     TRIM(C_ADDRESS)                AS address,
@@ -12,3 +23,4 @@ create or replace view db.stg_customer
     TRIM(C_MKTSEGMENT)             AS market_segment,
     TRIM(C_COMMENT)                AS comment
 FROM db.customer;
+  

@@ -1,8 +1,19 @@
-create or replace view db.stg_lineitem
+
   
-  
-  as
-    SELECT
+    
+        create table db.stg_lineitem
+      
+      
+      
+      
+      
+      
+      
+      
+
+      as
+      
+SELECT
     CAST(L_ORDERKEY AS INT)         AS order_id,
     CAST(L_PARTKEY AS INT)          AS part_id,
     CAST(L_SUPPKEY AS INT)          AS supplier_id,
@@ -20,3 +31,4 @@ create or replace view db.stg_lineitem
     TRIM(L_SHIPMODE)                AS ship_mode,
     TRIM(L_COMMENT)                 AS comment
 FROM db.lineitem;
+  

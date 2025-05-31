@@ -1,3 +1,4 @@
+{{ config(materialized='table') }}
 SELECT
     CAST(C_CUSTKEY AS INT)         AS customer_id,
     TRIM(C_NAME)                   AS name,
