@@ -1,4 +1,4 @@
-name: dbt
+name: dbtproject
 version: '1.0'
 profile: spark_local
 

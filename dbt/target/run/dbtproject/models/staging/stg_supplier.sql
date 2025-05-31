@@ -1,0 +1,13 @@
+create or replace view db.stg_supplier
+  
+  
+  as
+    SELECT
+    CAST(S_SUPPKEY AS INT) AS S_SUPPKEY,
+    TRIM(S_NAME) AS S_NAME,
+    TRIM(S_ADDRESS) AS S_ADDRESS,
+    CAST(S_NATIONKEY AS INT) AS S_NATIONKEY,
+    TRIM(S_PHONE) AS S_PHONE,
+    CAST(S_ACCTBAL AS DECIMAL(15,2)) AS S_ACCTBAL,
+    TRIM(S_COMMENT) AS S_COMMENT
+FROM db.supplier;

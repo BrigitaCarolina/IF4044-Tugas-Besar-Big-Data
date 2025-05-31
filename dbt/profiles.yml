@@ -4,9 +4,7 @@ spark_local:
     dev:
       type: spark
       method: session
-      schema: staging
-      host: localhost
-      port: 10000
-      database: staging
-      threads: 1
-      use_ssl: false
+      schema: db
+      host: NA
+      server_side_parameters:
+        "spark.driver.memory": "4g"
