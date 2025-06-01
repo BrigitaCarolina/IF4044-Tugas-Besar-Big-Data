@@ -15,5 +15,6 @@ SELECT
     CAST(L_RECEIPTDATE AS DATE)     AS receipt_date,
     TRIM(L_SHIPINSTRUCT)            AS ship_instruct,
     TRIM(L_SHIPMODE)                AS ship_mode,
-    TRIM(L_COMMENT)                 AS comment
+    TRIM(L_COMMENT)                 AS comment,
+    CAST(L_LOADTIMESTAMP AS TIMESTAMP)          AS load_timestamp
 FROM db.lineitem;

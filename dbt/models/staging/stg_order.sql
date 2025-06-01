@@ -8,5 +8,6 @@ SELECT
     TRIM(O_ORDERPRIORITY)          AS order_priority,
     TRIM(O_CLERK)                  AS clerk,
     CAST(O_SHIPPRIORITY AS INT)    AS ship_priority,
-    TRIM(O_COMMENT)                AS comment
+    TRIM(O_COMMENT)                AS comment,
+    CAST(O_LOADTIMESTAMP AS TIMESTAMP)          AS load_timestamp
 FROM db.orders;
