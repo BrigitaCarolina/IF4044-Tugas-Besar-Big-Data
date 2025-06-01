@@ -8,5 +8,6 @@ SELECT
     CAST(P_SIZE AS INT) AS p_size,
     TRIM(P_CONTAINER) AS p_container,
     CAST(P_RETAILPRICE AS DECIMAL(15,2)) AS p_retailprice,
-    TRIM(P_COMMENT) AS p_comment
+    TRIM(P_COMMENT) AS p_comment,
+    CAST(P_LOADTIMESTAMP AS TIMESTAMP)          AS load_timestamp
 FROM db.part;

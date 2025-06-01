@@ -1,30 +1,32 @@
 -- Nation
-CREATE TABLE db.nation (
+CREATE OR REPLACE TABLE db.nation (
   N_NATIONKEY  INTEGER NOT NULL,
   N_NAME       STRING NOT NULL,
   N_REGIONKEY  INTEGER NOT NULL,
-  N_COMMENT    STRING
+  N_COMMENT    STRING,
+  N_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.nation
-SELECT CAST(_c0 AS INT), _c1, CAST(_c2 AS INT), _c3
+SELECT CAST(_c0 AS INT), _c1, CAST(_c2 AS INT), _c3, current_timestamp()
 FROM csv.`/mnt/project/seeds/nation.csv`;
 
 -- Region
-CREATE TABLE db.region (
+CREATE OR REPLACE TABLE db.region (
   R_REGIONKEY  INTEGER NOT NULL,
   R_NAME       STRING NOT NULL,
-  R_COMMENT    STRING
+  R_COMMENT    STRING,
+  R_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.region
-SELECT CAST(_c0 AS INT), _c1, _c2
+SELECT CAST(_c0 AS INT), _c1, _c2, current_timestamp()
 FROM csv.`/mnt/project/seeds/region.csv`;
 
 -- Part
-CREATE TABLE db.part (
+CREATE OR REPLACE TABLE db.part (
   P_PARTKEY     INTEGER NOT NULL,
   P_NAME        STRING NOT NULL,
   P_MFGR        STRING NOT NULL,
@@ -33,46 +35,49 @@ CREATE TABLE db.part (
   P_SIZE        INTEGER NOT NULL,
   P_CONTAINER   STRING NOT NULL,
   P_RETAILPRICE DECIMAL(15,2) NOT NULL,
-  P_COMMENT     STRING
+  P_COMMENT     STRING,
+  P_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.part
-SELECT CAST(_c0 AS INT), _c1, _c2, _c3, _c4, CAST(_c5 AS INT), _c6, CAST(_c7 AS DECIMAL(15,2)), _c8
+SELECT CAST(_c0 AS INT), _c1, _c2, _c3, _c4, CAST(_c5 AS INT), _c6, CAST(_c7 AS DECIMAL(15,2)), _c8, current_timestamp()
 FROM csv.`/mnt/project/seeds/part.csv`;
 
 -- Supplier
-CREATE TABLE db.supplier (
+CREATE OR REPLACE TABLE db.supplier (
   S_SUPPKEY     INTEGER NOT NULL,
   S_NAME        STRING,
   S_ADDRESS     STRING,
   S_NATIONKEY   INTEGER,
   S_PHONE       STRING,
   S_ACCTBAL     DECIMAL(15,2),
-  S_COMMENT     STRING
+  S_COMMENT     STRING,
+  S_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.supplier
-SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15,2)), _c6
+SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15,2)), _c6, current_timestamp()
 FROM csv.`/mnt/project/seeds/supplier.csv`;
 
 -- Partsupp
-CREATE TABLE db.partsupp (
+CREATE OR REPLACE TABLE db.partsupp (
   PS_PARTKEY     INTEGER NOT NULL,
   PS_SUPPKEY     INTEGER NOT NULL,
   PS_AVAILQTY    INTEGER NOT NULL,
   PS_SUPPLYCOST  DECIMAL(15,2) NOT NULL,
-  PS_COMMENT     STRING
+  PS_COMMENT     STRING,
+  PS_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.partsupp
-SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), CAST(_c2 AS INT), CAST(_c3 AS DECIMAL(15,2)), _c4
+SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), CAST(_c2 AS INT), CAST(_c3 AS DECIMAL(15,2)), _c4, current_timestamp()
 FROM csv.`/mnt/project/seeds/partsupp.csv`;
 
 -- Customer
-CREATE TABLE db.customer (
+CREATE OR REPLACE TABLE db.customer (
   C_CUSTKEY     INTEGER NOT NULL,
   C_NAME        STRING,
   C_ADDRESS     STRING,
@@ -80,16 +85,17 @@ CREATE TABLE db.customer (
   C_PHONE       STRING,
   C_ACCTBAL     DECIMAL(15,2),
   C_MKTSEGMENT  STRING,
-  C_COMMENT     STRING
+  C_COMMENT     STRING,
+  C_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.customer
-SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15,2)), _c6, _c7
+SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15,2)), _c6, _c7, current_timestamp()
 FROM csv.`/mnt/project/seeds/customer.csv`;
 
 -- Orders
-CREATE TABLE db.orders (
+CREATE OR REPLACE TABLE db.orders (
   O_ORDERKEY       INTEGER NOT NULL,
   O_CUSTKEY        INTEGER NOT NULL,
   O_ORDERSTATUS    STRING NOT NULL,
@@ -98,16 +104,17 @@ CREATE TABLE db.orders (
   O_ORDERPRIORITY  STRING NOT NULL,
   O_CLERK          STRING NOT NULL,
   O_SHIPPRIORITY   INTEGER NOT NULL,
-  O_COMMENT        STRING
+  O_COMMENT        STRING,
+  O_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
 INSERT INTO db.orders
-SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), _c2, CAST(_c3 AS DECIMAL(15,2)), CAST(_c4 AS DATE), _c5, _c6, CAST(_c7 AS INT), _c8
+SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), _c2, CAST(_c3 AS DECIMAL(15,2)), CAST(_c4 AS DATE), _c5, _c6, CAST(_c7 AS INT), _c8, current_timestamp()
 FROM csv.`/mnt/project/seeds/orders.csv`;
 
 -- Lineitem
-CREATE TABLE db.lineitem (
+CREATE OR REPLACE TABLE db.lineitem (
   L_ORDERKEY      INTEGER NOT NULL,
   L_PARTKEY       INTEGER NOT NULL,
   L_SUPPKEY       INTEGER NOT NULL,
@@ -123,7 +130,8 @@ CREATE TABLE db.lineitem (
   L_RECEIPTDATE   DATE NOT NULL,
   L_SHIPINSTRUCT  STRING NOT NULL,
   L_SHIPMODE      STRING NOT NULL,
-  L_COMMENT       STRING
+  L_COMMENT       STRING,
+  L_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
@@ -132,5 +140,5 @@ SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), CAST(_c2 AS INT), CAST(_c3 AS INT),
        CAST(_c4 AS DECIMAL(15,2)), CAST(_c5 AS DECIMAL(15,2)), CAST(_c6 AS DECIMAL(15,2)),
        CAST(_c7 AS DECIMAL(15,2)), _c8, _c9,
        CAST(_c10 AS DATE), CAST(_c11 AS DATE), CAST(_c12 AS DATE),
-       _c13, _c14, _c15
+       _c13, _c14, _c15, current_timestamp()
 FROM csv.`/mnt/project/seeds/lineitem.csv`;

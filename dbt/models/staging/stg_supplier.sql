@@ -6,5 +6,6 @@ SELECT
     CAST(S_NATIONKEY AS INT) AS s_nationkey,
     TRIM(S_PHONE) AS s_phone,
     CAST(S_ACCTBAL AS DECIMAL(15,2)) AS s_acctbal,
-    TRIM(S_COMMENT) AS s_comment
+    TRIM(S_COMMENT) AS s_comment,
+    CAST(S_LOADTIMESTAMP AS TIMESTAMP)          AS load_timestamp
 FROM db.supplier;

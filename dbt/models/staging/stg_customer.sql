@@ -7,5 +7,6 @@ SELECT
     TRIM(C_PHONE)                  AS phone,
     CAST(C_ACCTBAL AS DECIMAL(15,2)) AS account_balance,
     TRIM(C_MKTSEGMENT)             AS market_segment,
-    TRIM(C_COMMENT)                AS comment
+    TRIM(C_COMMENT)                AS comment,
+    CAST(C_LOADTIMESTAMP AS TIMESTAMP)          AS load_timestamp
 FROM db.customer;
