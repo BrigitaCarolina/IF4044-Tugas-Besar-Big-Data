@@ -1,4 +1,4 @@
-{{ config(materialized='ephemeral') }}
+{{ config(materialized='table') }}
 SELECT
     P_PARTKEY as part_id,
     P_NAME as part_name,

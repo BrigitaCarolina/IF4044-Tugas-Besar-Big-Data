@@ -1,4 +1,4 @@
-{{ config(materialized='ephemeral') }}
+{{ config(materialized='table') }}
 
 SELECT
     S.S_SUPPKEY as supplier_id,
