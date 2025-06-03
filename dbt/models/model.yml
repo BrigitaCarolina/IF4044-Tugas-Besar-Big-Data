@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: db
+    tables:
+      - name: nation
+      - name: region
+      - name: part
+      - name: supplier
+      - name: partsupp
+      - name: customer
+      - name: orders
+      - name: lineitem

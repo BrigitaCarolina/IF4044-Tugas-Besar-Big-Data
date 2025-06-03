@@ -6,5 +6,6 @@ services:
     container_name: spark-iceberg
     volumes:
       - "${PROJECT_DIRECTORY_PATH}:/mnt/project"
+      - "${WAREHOUSE_DIRECTORY_PATH}:/usr/hive/warehouse"
     stdin_open: true
     tty: true

@@ -3,3 +3,4 @@
 /warehouse/db
 metastore_db
 derby.log
+/db.*

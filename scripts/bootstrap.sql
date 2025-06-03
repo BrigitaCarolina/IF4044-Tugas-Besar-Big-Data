@@ -1,5 +1,8 @@
+CREATE DATABASE IF NOT EXISTS db;
+USE db;
+
 -- Nation
-CREATE OR REPLACE TABLE db.nation (
+CREATE OR REPLACE TABLE nation (
   N_NATIONKEY  INTEGER NOT NULL,
   N_NAME       STRING NOT NULL,
   N_REGIONKEY  INTEGER NOT NULL,
@@ -8,12 +11,12 @@ CREATE OR REPLACE TABLE db.nation (
 )
 USING iceberg;
 
-INSERT INTO db.nation
+INSERT INTO nation
 SELECT CAST(_c0 AS INT), _c1, CAST(_c2 AS INT), _c3, current_timestamp()
 FROM csv.`/mnt/project/seeds/nation.csv`;
 
 -- Region
-CREATE OR REPLACE TABLE db.region (
+CREATE OR REPLACE TABLE region (
   R_REGIONKEY  INTEGER NOT NULL,
   R_NAME       STRING NOT NULL,
   R_COMMENT    STRING,
@@ -21,12 +24,12 @@ CREATE OR REPLACE TABLE db.region (
 )
 USING iceberg;
 
-INSERT INTO db.region
+INSERT INTO region
 SELECT CAST(_c0 AS INT), _c1, _c2, current_timestamp()
 FROM csv.`/mnt/project/seeds/region.csv`;
 
 -- Part
-CREATE OR REPLACE TABLE db.part (
+CREATE OR REPLACE TABLE part (
   P_PARTKEY     INTEGER NOT NULL,
   P_NAME        STRING NOT NULL,
   P_MFGR        STRING NOT NULL,
@@ -40,29 +43,29 @@ CREATE OR REPLACE TABLE db.part (
 )
 USING iceberg;
 
-INSERT INTO db.part
+INSERT INTO part
 SELECT CAST(_c0 AS INT), _c1, _c2, _c3, _c4, CAST(_c5 AS INT), _c6, CAST(_c7 AS DECIMAL(15,2)), _c8, current_timestamp()
 FROM csv.`/mnt/project/seeds/part.csv`;
 
 -- Supplier
-CREATE OR REPLACE TABLE db.supplier (
+CREATE OR REPLACE TABLE supplier (
   S_SUPPKEY     INTEGER NOT NULL,
-  S_NAME        STRING,
-  S_ADDRESS     STRING,
-  S_NATIONKEY   INTEGER,
-  S_PHONE       STRING,
-  S_ACCTBAL     DECIMAL(15,2),
+  S_NAME        STRING NOT NULL,
+  S_ADDRESS     STRING NOT NULL,
+  S_NATIONKEY   INTEGER NOT NULL,
+  S_PHONE       STRING NOT NULL,
+  S_ACCTBAL     DECIMAL(15,2) NOT NULL,
   S_COMMENT     STRING,
   S_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
-INSERT INTO db.supplier
+INSERT INTO supplier
 SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15,2)), _c6, current_timestamp()
 FROM csv.`/mnt/project/seeds/supplier.csv`;
 
 -- Partsupp
-CREATE OR REPLACE TABLE db.partsupp (
+CREATE OR REPLACE TABLE partsupp (
   PS_PARTKEY     INTEGER NOT NULL,
   PS_SUPPKEY     INTEGER NOT NULL,
   PS_AVAILQTY    INTEGER NOT NULL,
@@ -72,30 +75,30 @@ CREATE OR REPLACE TABLE db.partsupp (
 )
 USING iceberg;
 
-INSERT INTO db.partsupp
+INSERT INTO partsupp
 SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), CAST(_c2 AS INT), CAST(_c3 AS DECIMAL(15,2)), _c4, current_timestamp()
 FROM csv.`/mnt/project/seeds/partsupp.csv`;
 
 -- Customer
-CREATE OR REPLACE TABLE db.customer (
+CREATE OR REPLACE TABLE customer (
   C_CUSTKEY     INTEGER NOT NULL,
-  C_NAME        STRING,
-  C_ADDRESS     STRING,
-  C_NATIONKEY   INTEGER,
-  C_PHONE       STRING,
-  C_ACCTBAL     DECIMAL(15,2),
-  C_MKTSEGMENT  STRING,
+  C_NAME        STRING NOT NULL,
+  C_ADDRESS     STRING NOT NULL,
+  C_NATIONKEY   INTEGER NOT NULL,
+  C_PHONE       STRING NOT NULL,
+  C_ACCTBAL     DECIMAL(15,2) NOT NULL,
+  C_MKTSEGMENT  STRING NOT NULL,
   C_COMMENT     STRING,
   C_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
-INSERT INTO db.customer
+INSERT INTO customer
 SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15,2)), _c6, _c7, current_timestamp()
 FROM csv.`/mnt/project/seeds/customer.csv`;
 
 -- Orders
-CREATE OR REPLACE TABLE db.orders (
+CREATE OR REPLACE TABLE orders (
   O_ORDERKEY       INTEGER NOT NULL,
   O_CUSTKEY        INTEGER NOT NULL,
   O_ORDERSTATUS    STRING NOT NULL,
@@ -109,12 +112,12 @@ CREATE OR REPLACE TABLE db.orders (
 )
 USING iceberg;
 
-INSERT INTO db.orders
+INSERT INTO orders
 SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), _c2, CAST(_c3 AS DECIMAL(15,2)), CAST(_c4 AS DATE), _c5, _c6, CAST(_c7 AS INT), _c8, current_timestamp()
 FROM csv.`/mnt/project/seeds/orders.csv`;
 
 -- Lineitem
-CREATE OR REPLACE TABLE db.lineitem (
+CREATE OR REPLACE TABLE lineitem (
   L_ORDERKEY      INTEGER NOT NULL,
   L_PARTKEY       INTEGER NOT NULL,
   L_SUPPKEY       INTEGER NOT NULL,
@@ -135,7 +138,7 @@ CREATE OR REPLACE TABLE db.lineitem (
 )
 USING iceberg;
 
-INSERT INTO db.lineitem
+INSERT INTO lineitem
 SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), CAST(_c2 AS INT), CAST(_c3 AS INT),
        CAST(_c4 AS DECIMAL(15,2)), CAST(_c5 AS DECIMAL(15,2)), CAST(_c6 AS DECIMAL(15,2)),
        CAST(_c7 AS DECIMAL(15,2)), _c8, _c9,
