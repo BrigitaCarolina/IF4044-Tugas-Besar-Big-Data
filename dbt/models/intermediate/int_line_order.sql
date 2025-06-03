@@ -7,7 +7,7 @@ SELECT
             COALESCE(L.supplier_id, '') || '-' ||
             COALESCE(O.customer_id, '')
         ), 256
-    ),
+    ) line_order_sk,
     L.order_id, 
     L.part_id,
     L.supplier_id,
@@ -27,15 +27,18 @@ SELECT
     O.customer_id,
     O.order_status,
     O.total_price as total_order_price,
+    PS.ps_supplycost as supply_cost,
     O.order_date,
     O.order_priority,
     O.clerk,
-    O.ship_priority,
+    O.ship_priority
     O.comment AS order_comment
 FROM
     {{ref('stg_lineitem')}} L 
-JOIN
+INNER JOIN
     {{ref('stg_order')}} O ON L.order_id = O.order_id
+INNER JOIN 
+    {{ref('stg_partsupp')}} PS on PS.ps_suppkey = L.supplier_id
 
 
 {% if is_incremental() %}
