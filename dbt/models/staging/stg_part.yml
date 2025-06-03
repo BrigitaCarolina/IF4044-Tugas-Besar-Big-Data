@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_part
+    description: "Staging model for TPCH part data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: p_partkey
+        description: "Primary key for the part."
+        tests:
+          - not_null
+          - unique
+
+      - name: p_name
+        description: "Name of the part."
+
+      - name: p_mfgr
+        description: "Manufacturer of the part."
+
+      - name: p_brand
+        description: "Brand of the part."
+
+      - name: p_type
+        description: "Type or category of the part."
+
+      - name: p_size
+        description: "Size of the part."
+
+      - name: p_container
+        description: "Container type for the part."
+
+      - name: p_retailprice
+        description: "Retail price of the part."
+
+      - name: p_comment
+        description: "Additional comments about the part."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: stg_orders
+    description: "Staging model for TPCH orders data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: order_id
+        description: "Primary key for the order."
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: "Foreign key to the customer table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_id
+
+      - name: order_status
+        description: "Status of the order."
+        tests:
+          - not_null
+
+      - name: total_price
+        description: "Total price of the order."
+
+      - name: order_date
+        description: "Date the order was placed."
+        tests:
+          - not_null
+
+      - name: order_priority
+        description: "Priority level of the order."
+
+      - name: clerk
+        description: "Clerk who processed the order."
+
+      - name: ship_priority
+        description: "Priority level for shipping."
+
+      - name: comment
+        description: "Additional comments about the order."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_customer
+    description: "Staging model for TPCH customer data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: customer_id
+        description: "Primary key for the customer."
+        tests:
+          - not_null
+          - unique
+
+      - name: name
+        description: "Customer name."
+
+      - name: address
+        description: "Customer address."
+
+      - name: nation_id
+        description: "Foreign key to the nation table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_nation')
+              field: nation_id
+
+      - name: phone
+        description: "Customer phone number."
+
+      - name: account_balance
+        description: "Current balance for the customer account."
+
+      - name: market_segment
+        description: "Market segment assigned to the customer."
+
+      - name: comment
+        description: "Additional comments about the customer."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

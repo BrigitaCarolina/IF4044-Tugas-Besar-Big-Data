@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: stg_nation
+    description: "Staging model for TPCH nation data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: nation_id
+        description: "Primary key for the nation."
+        tests:
+          - not_null
+          - unique
+
+      - name: region_id
+        description: "Foreign key to the region table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_region')
+              field: r_regionkey
+
+      - name: nation_name
+        description: "Name of the nation."
+
+      - name: nation_comment
+        description: "Additional comments about the nation."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

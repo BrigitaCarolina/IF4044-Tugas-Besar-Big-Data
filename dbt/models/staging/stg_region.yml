@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: stg_region
+    description: "Staging model for TPCH region data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: r_regionkey
+        description: "Primary key for the region."
+        tests:
+          - not_null
+          - unique
+
+      - name: r_name
+        description: "Name of the region."
+
+      - name: r_comment
+        description: "Additional comments about the region."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

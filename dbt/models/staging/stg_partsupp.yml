@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: stg_partsupp
+    description: "Staging model for TPCH partsupp data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: ps_partkey
+        description: "Foreign key to the part table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_part')
+              field: p_partkey
+
+      - name: ps_suppkey
+        description: "Foreign key to the supplier table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_supplier')
+              field: s_suppkey
+
+      - name: ps_availqty
+        description: "Available quantity of the part supplied."
+
+      - name: ps_supplycost
+        description: "Supply cost of the part."
+
+      - name: ps_comment
+        description: "Comments about the parts supplier."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."
