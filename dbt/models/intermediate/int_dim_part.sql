@@ -1,18 +1,5 @@
-{{ config(materialized='table') }}
+{{ config(materialized='ephemeral') }}
 SELECT
-    sha2(
-        (
-            COALESCE(P_PARTKEY, '') || '-' ||
-            COALESCE(P_NAME, '') || '-' ||
-            COALESCE(P_MFGR, '') || '-' ||
-            COALESCE(P_BRAND, '') || '-' ||
-            COALESCE(P_TYPE, '') || '-' ||
-            COALESCE(P_SIZE, '') || '-' ||
-            COALESCE(P_CONTAINER, '') || '-' ||
-            COALESCE(P_RETAILPRICE, '') || '-' ||
-            COALESCE(P_COMMENT, '')
-        ), 256
-    ) AS part_sk,
     P_PARTKEY as part_id,
     P_NAME as part_name,
     P_MFGR as part_mfgr,
@@ -21,7 +8,7 @@ SELECT
     P_SIZE as part_size,
     P_CONTAINER as part_container,
     P_RETAILPRICE as part_retailprice,
-    P_COMMENT as part_comment
-
+    P_COMMENT as part_comment,
+    load_timestamp
 FROM
     {{ref('stg_part')}} P

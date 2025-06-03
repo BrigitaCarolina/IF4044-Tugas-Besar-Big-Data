@@ -31,7 +31,7 @@ SELECT
     O.order_date,
     O.order_priority,
     O.clerk,
-    O.ship_priority
+    O.ship_priority,
     O.comment AS order_comment
 FROM
     {{ref('stg_lineitem')}} L 
