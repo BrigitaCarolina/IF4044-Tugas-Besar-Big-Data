@@ -1,6 +1,7 @@
 {{config(materialized = 'table')}}
 
 SELECT
+    P.dbt_scd_id, 
     P.part_id,
     P.part_name,
     SUM(LO.quantity) as ordered_item_quantity,
@@ -10,7 +11,7 @@ FROM
 INNER JOIN 
     {{ref('int_line_order')}} LO
 ON  
-    P.part_id = LO.part_id
+    P.dbt_scd_id = LO.part_scd_id
 GROUP BY
     1, 2
 ORDER BY 4, 3
