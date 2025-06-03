@@ -65,17 +65,17 @@ SELECT CAST(_c0 AS INT), _c1, _c2, CAST(_c3 AS INT), _c4, CAST(_c5 AS DECIMAL(15
 FROM csv.`/mnt/project/seeds/supplier.csv`;
 
 -- Partsupp
-CREATE OR REPLACE TABLE partsupp (
+CREATE OR REPLACE TABLE part_supp (
   PS_PARTKEY     INTEGER NOT NULL,
   PS_SUPPKEY     INTEGER NOT NULL,
   PS_AVAILQTY    INTEGER NOT NULL,
   PS_SUPPLYCOST  DECIMAL(15,2) NOT NULL,
-  PS_COMMENT     STRING,
+  PS_COMMENT     STRING,  
   PS_LOADTIMESTAMP TIMESTAMP 
 )
 USING iceberg;
 
-INSERT INTO partsupp
+INSERT INTO part_supp
 SELECT CAST(_c0 AS INT), CAST(_c1 AS INT), CAST(_c2 AS INT), CAST(_c3 AS DECIMAL(15,2)), _c4, current_timestamp()
 FROM csv.`/mnt/project/seeds/partsupp.csv`;
 

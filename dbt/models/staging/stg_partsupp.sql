@@ -10,7 +10,7 @@ partsupp as (
         CAST(PS_SUPPLYCOST AS INT) AS ps_supplycost,
         TRIM(PS_COMMENT) AS ps_comment,
         CAST(PS_LOADTIMESTAMP AS TIMESTAMP) AS load_timestamp
-    FROM partsupp
+    FROM source
 )
 
 select * from partsupp
