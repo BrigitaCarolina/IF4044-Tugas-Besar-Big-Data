@@ -1,0 +1,42 @@
+snapshots:
+  - name: customer_history
+    relation: ref('int_dim_customer')
+    description: |
+      Track changes in customer data over time using the load_timestamp 
+    config:
+      database: db
+      file_format: iceberg
+      materialized: snapshot
+      strategy: timestamp 
+      unique_key: customer_id
+      updated_at: load_timestamp
+      dbt_valid_to_current: NULL
+      hard_deletes: invalidate
+  - name: part_history
+    relation: ref('int_dim_part')
+    description: |
+      Track changes in part data over time using the load_timestamp 
+    config:
+      database: db
+      file_format: iceberg
+      materialized: snapshot
+      strategy: timestamp 
+      unique_key: part_id
+      updated_at: load_timestamp
+      dbt_valid_to_current: NULL
+      hard_deletes: invalidate
+  - name: supplier_history
+    relation: ref('int_dim_supplier')
+    description: |
+      Track changes in supplier data over time using the load_timestamp 
+    config:
+      database: db
+      file_format: iceberg
+      materialized: snapshot
+      strategy: timestamp 
+      unique_key: supplier_id
+      updated_at: load_timestamp
+      dbt_valid_to_current: NULL
+      hard_deletes: invalidate
+
+
