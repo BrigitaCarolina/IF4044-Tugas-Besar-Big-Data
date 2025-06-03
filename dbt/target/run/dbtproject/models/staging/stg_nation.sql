@@ -1,22 +1,19 @@
-
+create or replace view db.stg_nation
   
-    
-        create table db.stg_nation
-      
-      
-      
-      
-      
-      
-      
-      
-
-      as
-      
-SELECT 
-    CAST(N_NATIONKEY AS INT) AS nation_id,
-    CAST(N_REGIONKEY AS INT) AS region_id,
-    TRIM(N_NAME) AS nation_name,       
-    TRIM(N_COMMENT) AS nation_comment
-FROM db.nation;
   
+  as
+    with
+source as (
+    select * from db.nation
+),
+nation as (
+    SELECT
+        CAST(N_NATIONKEY AS INT) AS nation_id,
+        CAST(N_REGIONKEY AS INT) AS region_id,
+        TRIM(N_NAME) AS nation_name,       
+        TRIM(N_COMMENT) AS nation_comment,
+        CAST(N_LOADTIMESTAMP AS TIMESTAMP) AS load_timestamp
+    FROM source
+)
+
+select * from nation

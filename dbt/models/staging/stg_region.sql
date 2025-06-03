@@ -1,7 +1,14 @@
-{{ config(materialized='table') }}
-SELECT 
-    CAST(R_REGIONKEY AS INT) AS r_regionkey,
-    TRIM(R_NAME) AS r_name,
-    TRIM(R_COMMENT) AS r_comment,
-    CAST(R_LOADTIMESTAMP AS TIMESTAMP)          AS load_timestamp
-FROM db.region;
+with
+source as (
+    select * from {{ source('db', 'region') }}
+),
+region as (
+    SELECT 
+        CAST(R_REGIONKEY AS INT) AS r_regionkey,
+        TRIM(R_NAME) AS r_name,
+        TRIM(R_COMMENT) AS r_comment,
+        CAST(R_LOADTIMESTAMP AS TIMESTAMP) AS load_timestamp
+    FROM source
+)
+
+select * from region
