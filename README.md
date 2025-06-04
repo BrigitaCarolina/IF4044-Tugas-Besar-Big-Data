@@ -49,10 +49,28 @@ schematool --dbType derby --initSchema
 ```
 ### 6. Run Hive Metastore
 
+Create a new file with the following content and save it as `hive-site.xml` in the `/opt/hive/conf` directory:
+
+```xml
+<configuration>
+  <property>
+    <name>hive.metastore.warehouse.dir</name>
+    <value>/usr/hive/warehouse</value>
+    <description>Hive warehouse directory</description>
+  </property>
+
+  <property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://localhost:9083</value>
+    <description>Thrift URI for the remote metastore. Spark will connect to this URI to interact with the metastore.</description>
+  </property>
+</configuration>
+```
+
+then, run
+
 ```sh
-hive --service metastore \
-    --hiveconf hive.metastore.warehouse.dir=/usr/hive/warehouse \
-    --hiveconf hive.metastore.uris=thrift://localhost:9083 &
+hive --service metastore &
 ```
 This will start the Hive Metastore service on background, which is required for Iceberg to manage metadata.
 
