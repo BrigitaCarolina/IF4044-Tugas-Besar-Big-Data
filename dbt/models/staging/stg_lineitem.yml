@@ -1,0 +1,75 @@
+version: 2
+
+models:
+  - name: stg_lineitem
+    description: "Staging model for TPCH lineitem data. Cleans and casts raw fields from the source table."
+    columns:
+      - name: order_id
+        description: "Foreign key to the orders table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_order')
+              field: order_id
+
+      - name: part_id
+        description: "Foreign key to the part table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_part')
+              field: p_partkey
+
+      - name: supplier_id
+        description: "Foreign key to the supplier table."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_supplier')
+              field: s_suppkey
+
+      - name: line_number
+        description: "Line number within the order."
+        tests:
+          - not_null
+
+      - name: quantity
+        description: "Quantity of the item ordered."
+
+      - name: extended_price
+        description: "Extended price for the line item."
+
+      - name: discount
+        description: "Discount applied to the line item."
+
+      - name: tax
+        description: "Tax applied to the line item."
+
+      - name: return_flag
+        description: "Return flag indicating return status."
+
+      - name: line_status
+        description: "Status of the line item."
+
+      - name: ship_date
+        description: "Date the item was shipped."
+        tests:
+          - not_null
+
+      - name: commit_date
+        description: "Date the item was committed."
+
+      - name: receipt_date
+        description: "Date the item was received."
+
+      - name: ship_instruct
+        description: "Shipping instructions."
+
+      - name: ship_mode
+        description: "Mode of shipment."
+
+      - name: comment
+        description: "Comments about the line item."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_orders
+  - name: stg_order
     description: "Staging model for TPCH orders data. Cleans and casts raw fields from the source table."
     columns:
       - name: order_id
