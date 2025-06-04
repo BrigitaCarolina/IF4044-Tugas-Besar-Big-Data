@@ -104,6 +104,8 @@ dbt test --select <model_1_name> <model_2_name> ...
 
 Similar to running models, replace `<model_1_name>`, `<model_2_name>`, etc. with the names of the dbt models you want to test. This will execute the tests defined in the `dbt/tests` directory. You can also run all tests by omitting the `--select` option.
 
+If relationships test error with `Runtime Error[TABLE_OR_VIEW_NOT_FOUND]` are encountered, it may be due to the indirect models not being run yet. You can skip indirect selection by adding `--indirect-selection=cautious` to the command.
+
 ---
 
 ## Generating TPC-H CSV Data 
