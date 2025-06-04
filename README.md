@@ -75,6 +75,8 @@ SOURCE /mnt/project/scripts/bootstrap.sql
 ```
 This will create the necessary Iceberg tables and load the `.csv` TPC-H data in `/mnt/project/seed` into the Iceberg tables.
 
+---
+
 ## Running dbt Models
 ### 1. Run dbt Models
 
