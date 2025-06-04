@@ -1,0 +1,124 @@
+version: 2
+
+models:
+  - name: int_line_order
+    description: "Incremental fact table combining lineitem, order, customer, part, supplier, and partsupp data with SCD lookups."
+    config:
+      materialized: incremental
+    columns:
+      - name: line_order_id
+        description: "Surrogate key generated as SHA2 hash over order, part, supplier, and customer SCD IDs."
+        tests:
+          - unique
+          - not_null
+
+      - name: order_id
+        description: "Order identifier."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_order')
+              field: order_id
+
+      - name: part_scd_id
+        description: "Surrogate key for the part dimension (SCD)."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('part_history')
+              field: dbt_scd_id
+
+      - name: part_id
+        description: "Raw part identifier from staging."
+
+      - name: supplier_scd_id
+        description: "Surrogate key for the supplier dimension (SCD)."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('supplier_history')
+              field: dbt_scd_id
+
+      - name: supplier_id
+        description: "Raw supplier identifier from staging."
+
+      - name: line_number
+        description: "Line number within the order."
+
+      - name: quantity
+        description: "Quantity ordered."
+
+      - name: extended_price
+        description: "Extended price for the line."
+
+      - name: discount
+        description: "Discount applied on the line."
+
+      - name: tax
+        description: "Tax applied on the line."
+
+      - name: return_flag
+        description: "Return flag indicator."
+
+      - name: line_status
+        description: "Status of the line."
+
+      - name: ship_date
+        description: "Date the line was shipped."
+
+      - name: commit_date
+        description: "Date the line was committed."
+
+      - name: receipt_date
+        description: "Date the line was received."
+
+      - name: ship_instruct
+        description: "Shipping instructions."
+
+      - name: ship_mode
+        description: "Mode of shipping."
+
+      - name: lineitem_comment
+        description: "Comments on the line item."
+
+      - name: customer_scd_id
+        description: "Surrogate key for the customer dimension (SCD)."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('customer_history')
+              field: dbt_scd_id
+
+      - name: customer_id
+        description: "Raw customer identifier from order staging."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_id
+
+      - name: order_status
+        description: "Status of the order."
+
+      - name: total_order_price
+        description: "Total price for the order."
+
+      - name: ps_supplycost
+        description: "Supply cost from partsupp."
+
+      - name: order_date
+        description: "Order date."
+        tests:
+          - not_null
+
+      - name: order_priority
+        description: "Priority of the order."
+
+      - name: clerk
+        description: "Clerk responsible for the order."
+
+      - name: ship_priority
+        description: "Shipping priority."
+
+      - name: order_comment
+        description: "Comments on the order."

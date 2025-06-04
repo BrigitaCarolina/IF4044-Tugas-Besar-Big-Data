@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: int_dim_part
+    description: "Intermediate dimension model for parts based on the staging part model."
+    columns:
+      - name: part_id
+        description: "Primary key for the part."
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_part')
+              field: p_partkey
+
+      - name: part_name
+        description: "Name of the part."
+
+      - name: part_mfgr
+        description: "Manufacturer of the part."
+
+      - name: part_brand
+        description: "Brand of the part."
+
+      - name: part_type
+        description: "Type/category of the part."
+
+      - name: part_size
+        description: "Size of the part."
+
+      - name: part_container
+        description: "Container type of the part."
+
+      - name: part_retailprice
+        description: "Retail price of the part."
+
+      - name: part_comment
+        description: "Additional comments about the part."
+
+      - name: load_timestamp
+        description: "Timestamp indicating when the record was loaded."

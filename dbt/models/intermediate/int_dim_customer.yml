@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: int_dim_customer
+    description: "Intermediate dimension model for customers combining customer, nation, and region data."
+    columns:
+      - name: customer_id
+        description: "Primary key from the customer table."
+        tests:
+          - not_null
+          - unique
+          - relationships:
+              to: ref('stg_customer')
+              field: customer_id
+
+      - name: customer_name
+        description: "Customer name."
+
+      - name: customer_address
+        description: "Customer address."
+
+      - name: customer_nation_id
+        description: "Foreign key to nation dimension."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_nation')
+              field: nation_id
+              
+      - name: customer_phone
+        description: "Customer phone number."
+
+      - name: customer_account_balance
+        description: "Customer account balance."
+
+      - name: customer_market_segment
+        description: "Customer market segment."
+
+      - name: customer_comment
+        description: "Comments related to the customer."
+
+      - name: customer_region_id
+        description: "Foreign key to region dimension."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_region')
+              field: r_regionkey
+
+      - name: customer_nation_name
+        description: "Name of the customer's nation."
+
+      - name: nation_comment
+        description: "Comment associated with the nation."
+
+      - name: customer_region_name
+        description: "Name of the customer's region."
+
+      - name: region_comment
+        description: "Comment associated with the region."
+
+      - name: load_timestamp
+        description: "Timestamp when the record was loaded."
