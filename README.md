@@ -107,5 +107,5 @@ Similar to running models, replace `<model_1_name>`, `<model_2_name>`, etc. with
 ## Generating TPC-H CSV Data 
 
 To generate TPC-H data, you can refer to:
-- [electrum/tpch-dbgen GitHub Repository]("https://github.com/electrum/tpch-dbgen") (generated data is in `.tbl`, you need to convert them to `.csv`), or
-- [duckdb is the best TPC data generator]("https://xuanwo.io/links/2025/02/duckdb-is-the-best-tpc-data-generator/")  (you can replace `(FORMAT PARQUET)` with `(FORMAT CSV, HEADER FALSE)`)
+- [electrum/tpch-dbgen GitHub Repository](https://github.com/electrum/tpch-dbgen) (generated data is in `.tbl`, you need to convert them to `.csv`), or
+- [duckdb is the best TPC data generator](https://xuanwo.io/links/2025/02/duckdb-is-the-best-tpc-data-generator/)  (you can replace `(FORMAT PARQUET)` with `(FORMAT CSV, HEADER FALSE)`)
