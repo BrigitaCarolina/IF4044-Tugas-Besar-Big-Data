@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: mart_customer_nation_most_ordered_items
+    description: >
+      Mart that aggregates the total extended price of ordered items per customer nation and part. 
+      It joins the slowly changing customer and part dimensions with the line order fact table.
+
+    columns:
+      - name: customer_nation_id
+        description: "The ID of the nation the customer belongs to."
+        tests:
+          - not_null
+
+      - name: customer_nation_name
+        description: "Name of the customer's nation."
+        tests:
+          - not_null
+
+      - name: part_scd_id
+        description: "Surrogate SCD key for the part."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_dim_part')
+              field: dbt_scd_id
+
+      - name: part_id
+        description: "Original business key for the part."
+
+      - name: part_name
+        description: "Descriptive name of the part."
+
+      - name: total_item_price
+        description: "Total extended price of all orders for this part and nation."
+        tests:
+          - not_null

@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: mart_part_most_ordered
+    description: >
+      Mart table showing the most ordered parts by total quantity and revenue.
+      Combines slowly changing dimension data from int_dim_part with fact data from int_line_order.
+
+    columns:
+      - name: dbt_scd_id
+        description: "Surrogate SCD key for the part."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('int_dim_part')
+              field: dbt_scd_id
+
+      - name: part_id
+        description: "Business key for the part."
+        tests:
+          - not_null
+
+      - name: part_name
+        description: "Descriptive name of the part."
+        tests:
+          - not_null
+
+      - name: ordered_item_quantity
+        description: "Total quantity of items ordered for this part."
+        tests:
+          - not_null
+
+      - name: total_revenue
+        description: "Total revenue generated for this part (after discount)."
+        tests:
+          - not_null
